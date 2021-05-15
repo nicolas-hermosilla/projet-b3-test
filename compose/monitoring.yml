@@ -1,46 +1,43 @@
 services:
   prometheus:
+    build: .
     image: 'prom/prometheus'
     container_name: prometheus
     volumes:
       - prometheus_data:/etc/prometheus/
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - monitoring-net
     ports:
       - '9090:9090'
     restart: unless-stopped
-    networks:
-      - monitoring-net
 
   cadvisor:
     image: 'google/cadvisor'
+    build: .
     container_name: cadvisor
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - monitoring-net
     ports:
     - '8080:8080'
     restart: unless-stopped
-    networks:
-      - monitoring-net
 
   grafana:
     image: 'grafana/grafana'
+    build: .
     container_name: grafana
     volumes:
       - grafana-storage:/var/lib/grafana
+    networks:
+      - monitoring-net
     ports:
       - '3000:3000'
     restart: unless-stopped
     environment:
       - GF_INSTALL_PLUGINS=grafana-clock-panel
-    networks:
-       - monitoring-net
-
-volumes:
-  prometheus_data:
-    external: true
-  grafana-storage:
-    external: true
