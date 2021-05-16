@@ -2,7 +2,7 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
     agent any
     environment {
-        PATH = "$PATH:/usr/bin"
+        PATH = $PATH:/usr/bin
     }
     stages {
         stage('Run') {
