@@ -1,13 +1,12 @@
 pipeline {
-    agent any
-    environment {
-        PATH = "$PATH:/usr/bin"
-    }
+  agent any
     stages {
-        stage('Run') {
-            steps {
-                sh './run.sh'
-            }
-        }  
-    }
+      stage('Run') {
+        steps {
+          dir('services/') {   
+            sh './run.sh'
+          }
+        }
+      }
+    }  
 }
