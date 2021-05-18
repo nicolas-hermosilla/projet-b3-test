@@ -3,16 +3,10 @@
 ##############################
 
 services:
-  portainer:
-    extends:
-      file: adminboard.yml
-      service: portainer
-
   prometheus:     
     extends:
       file: monitoring.yml
       service: prometheus
-
 
   cadvisor:
     extends:
@@ -53,8 +47,6 @@ services:
 volumes:
   prometheus_data:          
     external: true
-  portainer_data:
-    external: true
   grafana-storage:
     external: true
   registry_data:
@@ -65,14 +57,6 @@ volumes:
 ##############################
 
 networks:
-  admin-net:     
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: "172.28.10.0/24"
-          gateway: "172.28.10.1"
-
   homeassistant-net:
     driver: bridge
     ipam:

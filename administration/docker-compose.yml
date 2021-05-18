@@ -1,0 +1,26 @@
+services:
+  jenkins:
+    extends:
+      file: administration.yml
+      service: jenkins
+  portainer:
+    extends:
+      file: administration.yml
+      service: portainer
+
+volumes:
+  jenkins_data:
+    external: true
+  portainer_data:
+    external: true
+
+networks:
+  admin-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.28.10.0/24"
+          gateway: "172.28.10.1"
+
+
