@@ -2,7 +2,7 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
   agent any
     stages {
-      stage('build') {
+      stage('run') {
         steps {
           dir('services/') {   
             sh './run.sh'
